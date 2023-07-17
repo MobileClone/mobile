@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class ListingService {
 
-    public static final String COL_NAME="users";
+    public static final String COL_NAME="Listing";
 
     public String addListing() throws InterruptedException, ExecutionException {
         Listing listing = new Listing(4L,"demo",10,"demo","demo");
