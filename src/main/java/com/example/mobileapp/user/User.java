@@ -1,7 +1,6 @@
 package com.example.mobileapp.user;
 
 import com.example.mobileapp.listing.Listing;
-
 import java.util.List;
 
 public class User {
