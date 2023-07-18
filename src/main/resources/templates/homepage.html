@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homepage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #f1f1f1;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .login {
+      margin-left: auto;
+    }
+
+    .add-button {
+      display: inline-block;
+      background-color: #337ab7;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+
+    .car-offers {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .car-box {
+      width: 400px;
+      background-color: #f1f1f1;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .car-box .picture {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+      border-radius: 5px;
+      margin-right: 20px;
+      float: left;
+    }
+
+    .car-box .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .car-box .description {
+      font-size: 14px;
+    }
+
+    .search {
+      float: left;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+
+    .search label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .search select,
+    .search input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .search .price-range {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .search .price-range input[type="text"] {
+      width: 45%;
+    }
+
+    .search input[type="submit"] {
+      background-color: #337ab7;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .website-name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="top-left">
+    <div class="website-name">MobileClone</div>
+  </div>
+  <div class="top-right">
+    <a class="add-button" href="#">Create Listing</a>
+    <div class="login">
+      <a href="#">Login/Register</a>
+    </div>
+  </div>
+</header>
+
+<div class="search">
+  <form>
+    <label for="brand">Brand:</label>
+    <select id="brand">
+      <option value="">All</option>
+      <option value="brand1">Brand 1</option>
+      <option value="brand2">Brand 2</option>
+      <option value="brand3">Brand 3</option>
+    </select>
+
+    <label for="model">Model:</label>
+    <select id="model">
+      <option value="">All</option>
+      <option value="model1">Model 1</option>
+      <option value="model2">Model 2</option>
+      <option value="model3">Model 3</option>
+    </select>
+
+    <div class="price-range">
+      <div>
+        <label for="from-price">From:</label>
+        <input type="text" id="from-price" placeholder="From">
+      </div>
+      <div>
+        <label for="to-price">To:</label>
+        <input type="text" id="to-price" placeholder="To">
+      </div>
+    </div>
+
+    <input type="submit" value="Search">
+  </form>
+</div>
+
+<div class="car-offers">
+  <div class="car-box">
+    <div class="picture"></div>
+    <div class="details">
+      <div class="title">Car Title</div>
+      <div class="description">Car description goes here.</div>
+    </div>
+  </div>
+
+  <div class="car-box">
+    <div class="picture"></div>
+    <div class="details">
+      <div class="title">Car Title</div>
+      <div class="description">Car description goes here.</div>
+    </div>
+  </div>
+
+  <div class="car-box">
+    <div class="picture"></div>
+    <div class="details">
+      <div class="title">Car Title</div>
+      <div class="description">Car description goes here.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
