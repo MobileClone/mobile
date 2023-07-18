@@ -9,6 +9,16 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(){
-        return "home";
+        return "homepage";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "LoginAndRegister";
+    }
+
+    @GetMapping("/createListing")
+    public String createListing(){
+        return "createListing";
     }
 }

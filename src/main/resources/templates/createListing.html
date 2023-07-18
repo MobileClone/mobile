@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sell my Ride</title>
+</head>
+<body>
+<h1>Sell my Ride</h1>
+<form enctype="multipart/form-data">
+  <label for="image">Image:</label>
+  <input type="file" id="image" name="image" accept="image/*" required><br><br>
+
+  <label for="brand">Brand:</label>
+  <select id="brand" name="brand" required>
+    <option value="">Select a brand</option>
+    <option value="Brand 1">Brand 1</option>
+    <option value="Brand 2">Brand 2</option>
+    <option value="Brand 3">Brand 3</option>
+    <!-- Add more options for other brands as needed -->
+  </select><br><br>
+
+  <label for="model">Model:</label>
+  <select id="model" name="model" required>
+    <option value="">Select a model</option>
+    <option value="Model 1">Model 1</option>
+    <option value="Model 2">Model 2</option>
+    <option value="Model 3">Model 3</option>
+    <!-- Add more options for other models as needed -->
+  </select><br><br>
+
+  <label for="year">Year:</label>
+  <input type="number" id="year" name="year" required><br><br>
+
+  <label for="kilometers">Kilometers:</label>
+  <input type="number" id="kilometers" name="kilometers" required><br><br>
+
+  <label for="price">Price:</label>
+  <input type="number" id="price" name="price" required><br><br>
+
+  <label for="description">Description:</label><br>
+  <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+
+  <input type="submit" value="Submit">
+
+</form>
+<h4>Hint: The more detailed information you write, the less stupid questions you will get.</h4>
+<label>Dont have junk for sale ? <a href="/">Go back</a></label>
+</body>
+</html>
