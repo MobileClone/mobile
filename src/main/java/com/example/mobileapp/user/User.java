@@ -1,33 +1,53 @@
 package com.example.mobileapp.user;
 
 import com.example.mobileapp.listing.Listing;
+import com.google.firebase.database.annotations.NotNull;
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
+@Table
 public class User {
 
+    @Id
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "user_sequence")
     private Long id;
+    @NotNull
     private String username;
+    @NotNull
     private String password;
+    @NotNull
     private String email;
-    private String telephoneNumber;
+    @NotNull
+    private String phoneNumber;
+
+    private String fName;
+    private String lName;
+    @OneToMany
     private List<Listing> listingList;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, String telephoneNumber) {
+    public User(Long id, String username, String password, String email, String phoneNumber, String fName, String lName) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.telephoneNumber = telephoneNumber;
+        this.phoneNumber = phoneNumber;
+        this.fName = fName;
+        this.lName = lName;
     }
 
-    public User(String username, String password, String email, String telephoneNumber) {
+    public User(String username, String password, String email, String phoneNumber, String fName, String lName) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.telephoneNumber = telephoneNumber;
+        this.phoneNumber = phoneNumber;
+        this.fName = fName;
+        this.lName = lName;
     }
 
     public Long getId() {
@@ -62,12 +82,12 @@ public class User {
         this.email = email;
     }
 
-    public String getTelephoneNumber() {
-        return telephoneNumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+    public void setTelephoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public List<Listing> getListingList() {
@@ -78,6 +98,22 @@ public class User {
         this.listingList = listingList;
     }
 
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -85,7 +121,9 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", telephoneNumber='" + phoneNumber + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
                 ", listingList=" + listingList +
                 '}';
     }

@@ -41,8 +41,8 @@ public class ListingController {
     }
 
     @DeleteMapping("/deletePatient")
-    public String deletePatient(@RequestParam String title){
-        return listingService.deleteListing(title);
+    public String deletePatient(@RequestParam Long id){
+        return listingService.deleteListing(id);
     }
 
 }

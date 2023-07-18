@@ -1,5 +1,6 @@
 package com.example.mobileapp.listing;
 
+import com.google.firebase.database.annotations.NotNull;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,9 +11,13 @@ public class Listing {
     @SequenceGenerator(name = "listing_sequence", sequenceName = "listing_sequence", allocationSize = 1)
     @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "listing_sequence")
     private Long id;
+    @NotNull
     private String title;
+    @NotNull
     private double price;
+    @NotNull
     private String characteristics;
+    @NotNull
     private String comment;
 
     public Listing() {

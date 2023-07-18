@@ -4,19 +4,26 @@ import com.example.mobileapp.listing.Listing;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import io.grpc.netty.shaded.io.netty.channel.unix.Errors;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
+@Transactional
 public class UserService {
 
     public static final String COL_NAME="Users";
 
     public String addUser() throws InterruptedException, ExecutionException {
-        User user = new User(2L,"usernamedemo","passworddemo","emaildemo", "phonenumberdemo");
+        User user = new User(2L,"usernamedemo","passworddemo","emaildemo", "phonenumberdemo", "Ivan", "Ivanov");
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user.getId().toString()).set(user);
         return collectionsApiFuture.get().getUpdateTime().toString();

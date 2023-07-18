@@ -59,10 +59,10 @@ public class ListingService {
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
-    public String deleteListing(String title) {
+    public String deleteListing(Long id) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(title).delete();
-        return "Document with Patient ID "+ title +" has been deleted";
+        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(id.toString()).delete();
+        return "Document with Listing ID "+ id +" has been deleted";
     }
 
     public List<Listing> getAllListings(DataSnapshot dataSnapshot){
