@@ -1,7 +1,14 @@
 package com.example.mobileapp.listing;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table
 public class Listing {
 
+    @Id
+    @SequenceGenerator(name = "listing_sequence", sequenceName = "listing_sequence", allocationSize = 1)
+    @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "listing_sequence")
     private Long id;
     private String title;
     private double price;
