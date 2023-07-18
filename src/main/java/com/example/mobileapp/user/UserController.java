@@ -23,7 +23,8 @@ public class UserController {
     public void addUser() throws ExecutionException, InterruptedException {
         DbConnection db = new DbConnection();
         db.dbConnection();
-        userService.addUser();
+        User user = new User();
+        userService.addUser(user);
     }
 
     @GetMapping (value = "/users")

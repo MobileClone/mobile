@@ -31,6 +31,9 @@ public class User {
     public User() {
     }
 
+    public User(String username){
+        this.username = username;
+    }
     public User(Long id, String username, String password, String email, String phoneNumber, String fName, String lName) {
         this.id = id;
         this.username = username;
@@ -86,7 +89,7 @@ public class User {
         return phoneNumber;
     }
 
-    public void setTelephoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
