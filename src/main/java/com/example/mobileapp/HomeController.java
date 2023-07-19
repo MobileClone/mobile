@@ -21,7 +21,6 @@ import java.util.concurrent.ExecutionException;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
     public String home(){
         return "homepage";
     }

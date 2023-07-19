@@ -60,10 +60,17 @@ public class ListingController {
         listingService.createListing(listing);
     }
 
-    @GetMapping (value = "/listings")
+    @GetMapping (value = "/")
     public String getAllListings(Model model) throws ExecutionException, InterruptedException {
         List<Listing> listingList = listingService.getAllListings();
         model.addAttribute("listings",listingList);
-        return "listings";
+        return "homepage";
+    }
+
+    @GetMapping (value = "/homepageLogged")
+    public String getAllListingsLogged(Model model) throws ExecutionException, InterruptedException {
+        List<Listing> listingList = listingService.getAllListings();
+        model.addAttribute("listings",listingList);
+        return "homepageLogged";
     }
 }

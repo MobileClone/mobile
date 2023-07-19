@@ -62,9 +62,9 @@ public class UserController {
         db.dbConnection();
         boolean valid = userService.isValid(userDto.getUsername(), userDto.getPassword());
         if(valid == true){
-            return "homepageLogged";
+            return "redirect:/homepageLogged";
         }
-        return "homepage";
+        return "redirect:/";
     }
 
 }

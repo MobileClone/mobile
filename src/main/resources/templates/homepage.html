@@ -132,7 +132,7 @@
   </div>
   <div class="top-right">
     <div class="login">
-      <a class="add-button" href="/register">Login/Register</a>
+      <a class="add-button" href="/login">Login/Register</a>
     </div>
   </div>
 </header>
@@ -170,28 +170,19 @@
   </form>
 </div>
 
+<body>
 <div class="car-offers">
-  <div class="car-box">
-    <div class="picture"></div>
-    <div class="details">
-      <div class="title">Car Title</div>
-      <div class="description">Car description goes here.</div>
+  <div class="car-box" th:each="listing : ${listings}">
+    <div class="picture">
+      <img src="image-url-goes-here" alt="Car Image">
     </div>
-  </div>
-
-  <div class="car-box">
-    <div class="picture"></div>
     <div class="details">
-      <div class="title">Car Title</div>
-      <div class="description">Car description goes here.</div>
-    </div>
-  </div>
-
-  <div class="car-box">
-    <div class="picture"></div>
-    <div class="details">
-      <div class="title">Car Title</div>
-      <div class="description">Car description goes here.</div>
+      <div class="title">
+        <span th:text="${listing.brand}"></span>
+        <span th:text="${listing.model}"></span>
+      </div>
+      <div class="description" th:text="${listing.description}"></div>
+      <div class="price" th:text="${listing.price}"></div>
     </div>
   </div>
 </div>
