@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Mobile from Aliexpress</title>
+</head>
+<body>
+<h2>Hello</h2>
+<h3>Listings</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>Brand</th>
+    <th>Model</th>
+    <th>Image url</th>
+    <th>Price</th>
+    <th>Year</th>
+    <th>Description</th>
+    <th>Kilometers</th>
+    <th>User id</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="listing:${listings}">
+    <td th:text="${listing.getId()}">s</td>
+    <td th:text="${listing.getBrand()}"></td>
+    <td th:text="${listing.getModel()}"></td>
+    <td th:text="${listing.getImageUrl()}"></td>
+    <td th:text="${listing.getYearOfMaking()}"></td>
+    <td th:text="${listing.getDescription()}"></td>
+    <td th:text="${listing.getKilometers()}"></td>
+    <td th:text="${listing.getUserId()}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
