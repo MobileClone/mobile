@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -71,6 +73,33 @@ public class UserService {
             }
         }
         return false;
+    }
+
+    public boolean validUsername(String username){
+        Pattern pattern;
+        Matcher matcher;
+        String USERNAME_PATTERN = "^[A-Za-z0-9]{5,20}$";
+        pattern = Pattern.compile(USERNAME_PATTERN);
+        matcher = pattern.matcher(username);
+        return matcher.matches();
+    }
+
+    public boolean validPassword(String password){
+        Pattern pattern;
+        Matcher matcher;
+        String PASSWORD_PATTERN = "^(?=.*[A-Za-z].*) + (?=.*[0-9].*)[A-Za-z0-9]{5,20}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    public boolean validEmail(String email){
+        Pattern pattern;
+        Matcher matcher;
+        String EMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[a-z]{2,30}$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
 }

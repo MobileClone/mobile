@@ -5,6 +5,8 @@ import com.google.firebase.database.annotations.NotNull;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Table
@@ -81,6 +83,7 @@ public class User {
     }
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 
@@ -145,4 +148,5 @@ public class User {
                 ", listingList=" + listingList +
                 '}';
     }
+
 }

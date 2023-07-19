@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //CRUD operations
 @Service
@@ -84,5 +86,14 @@ public class ListingService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(listing.getId().toString()).set(listing);
         return collectionsApiFuture.get().getUpdateTime().toString();
+    }
+
+    public boolean validYear(String year){
+        Pattern pattern;
+        Matcher matcher;
+        String USERNAME_PATTERN = "^[0-9]{4}$";
+        pattern = Pattern.compile(USERNAME_PATTERN);
+        matcher = pattern.matcher(year);
+        return matcher.matches();
     }
 }
