@@ -45,9 +45,32 @@ public class UserService {
         User user1 = userList.get(0);
         long currentId = user1.getId();
         user.setId(currentId+1);
+        user.setRole("User");
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user.getId().toString()).set(user);
         return collectionsApiFuture.get().getUpdateTime().toString();
+    }
+
+    public String getUserRole(Long id) throws ExecutionException, InterruptedException {
+        List<User> userList = getAll();
+        String role = "";
+        for(User user : userList){
+            if(id == user.getId()){
+                role = user.getRole();
+            }
+        }
+        System.out.println(role);
+        return role;
+    }
+
+    public boolean isValid(String username, String password) throws ExecutionException, InterruptedException {
+        List<User> userList = getAll();
+        for (User user : userList){
+            if(username.equals(user.getUsername()) || password.equals(user.getPassword())){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

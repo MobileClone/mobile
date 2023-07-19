@@ -28,9 +28,15 @@ public class User {
     @OneToMany
     private List<Listing> listingList;
 
+    private String role;
+
     public User() {
     }
 
+    public User(String username,String password){
+        this.username = username;
+        this.password = password;
+    }
     public User(String username){
         this.username = username;
     }
@@ -44,13 +50,14 @@ public class User {
         this.lName = lName;
     }
 
-    public User(String username, String password, String email, String phoneNumber, String fName, String lName) {
+    public User(String username, String password, String email, String phoneNumber, String fName, String lName, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.fName = fName;
         this.lName = lName;
+        this.role = role;
     }
 
     public Long getId() {
@@ -115,6 +122,14 @@ public class User {
 
     public void setlName(String lName) {
         this.lName = lName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
