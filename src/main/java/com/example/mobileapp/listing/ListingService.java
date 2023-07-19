@@ -9,10 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,4 +93,23 @@ public class ListingService {
         matcher = pattern.matcher(year);
         return matcher.matches();
     }
-}
+            public void carbrands(){
+            Map<String, List<String>> carBrandsMap = new HashMap<>();
+
+            // Add car brands and their models
+            carBrandsMap.put("Toyota", new ArrayList<>(List.of("Camry", "Corolla", "Rav4")));
+            carBrandsMap.put("Honda", new ArrayList<>(List.of("Accord", "Civic", "CR-V")));
+            carBrandsMap.put("Ford", new ArrayList<>(List.of("Mustang", "Focus", "F-150")));
+            carBrandsMap.put("Chevrolet", new ArrayList<>(List.of("Cruze", "Malibu", "Silverado")));
+            carBrandsMap.put("BMW", new ArrayList<>(List.of("3 Series", "5 Series", "X5")));
+
+            // Access the map and print the brands and models
+            for (Map.Entry<String, List<String>> entry : carBrandsMap.entrySet()) {
+                String brand = entry.getKey();
+                List<String> models = entry.getValue();
+
+                System.out.println(brand + ": " + models);
+            }
+
+        }
+    }

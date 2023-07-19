@@ -171,22 +171,32 @@
   </form>
 </div>
 
+
 <div class="car-offers">
   <div class="car-box" th:each="listing : ${listings}">
     <div class="picture">
-      <img src="image-url-goes-here" alt="Car Image">
+      <img th:src="@{${listing.imageUrl}}" alt="Car Image" width="100" height="100">
     </div>
     <div class="details">
       <div class="title">
         <span th:text="${listing.brand}"></span>
         <span th:text="${listing.model}"></span>
       </div>
+      <div class="price">
+        <span th:text="${listing.price}"></span> $
+      </div>
+
+      <div class="kilometres">
+        <span th:text="${listing.kilometers}"></span> km
+      </div>
+
+      <div class="year">
+        <span th:text="${listing.yearOfMaking}"></span> year
+      </div>
       <div class="description" th:text="${listing.description}"></div>
-      <div class="price" th:text="${listing.price}"></div>
     </div>
   </div>
 </div>
-
 </body>
 
 </html>

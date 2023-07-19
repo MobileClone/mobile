@@ -51,13 +51,14 @@ public class ListingController {
     }
 
     @PostMapping("/createListing")
-    public void createListing(
+    public String createListing(
             @ModelAttribute("listing") Listing listing,
             HttpServletRequest request,
             Errors errors) throws ExecutionException, InterruptedException{
         DbConnection db = new DbConnection();
         db.dbConnection();
         listingService.createListing(listing);
+        return "redirect:/homepageLogged";
     }
 
     @GetMapping (value = "/")

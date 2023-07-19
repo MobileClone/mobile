@@ -84,7 +84,7 @@
     <div class="form-toggle">
         <a href="/login">Login</a>
     </div>
-    <form th:object="${user}" method="POST" enctype="utf8">
+    <form action="/login" th:object="${user}" method="POST" enctype="utf8">
         <label for="register-username">Username:</label>
         <input type="text" id="register-username" required th:field="*{username}">
         <label for="register-email">Email:</label>
