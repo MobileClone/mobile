@@ -1,8 +1,10 @@
 package com.example.mobileapp.listing;
 
 import com.example.mobileapp.DbConnection;
+import com.example.mobileapp.user.User;
 import com.google.firebase.database.DataSnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,8 @@ public class ListingController {
     public void addListing() throws ExecutionException, InterruptedException {
         DbConnection db = new DbConnection();
         db.dbConnection();
-        listingService.addListing();
+        Listing listing = new Listing();
+        listingService.createListing(listing);
     }
 
     @GetMapping("/getPatientDetails")
@@ -44,5 +47,6 @@ public class ListingController {
     public String deletePatient(@RequestParam Long id){
         return listingService.deleteListing(id);
     }
+
 
 }

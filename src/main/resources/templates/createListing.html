@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Sell my Ride</title>
 </head>
 <body>
 <h1>Sell my Ride</h1>
-<form enctype="multipart/form-data">
+<form th:object="${listing}" method="POST" enctype="multipart/form-data">
   <label for="image">Image:</label>
-  <input type="file" id="image" name="image" accept="image/*" required><br><br>
+  <input type="file" id="image" name="image" accept="image/*"><br><br>
+  <input type="text" id ="img" name="img" required th:field="*{imageUrl}">
 
   <label for="brand">Brand:</label>
-  <select id="brand" name="brand" required>
+  <select id="brand" name="brand" required th:field="*{brand}">
     <option value="">Select a brand</option>
     <option value="Brand 1">Brand 1</option>
     <option value="Brand 2">Brand 2</option>
@@ -19,7 +20,7 @@
   </select><br><br>
 
   <label for="model">Model:</label>
-  <select id="model" name="model" required>
+  <select id="model" name="model" required th:field="*{model}">
     <option value="">Select a model</option>
     <option value="Model 1">Model 1</option>
     <option value="Model 2">Model 2</option>
@@ -28,16 +29,16 @@
   </select><br><br>
 
   <label for="year">Year:</label>
-  <input type="number" id="year" name="year" required><br><br>
+  <input type="text" id="year" name="year" required th:field="*{yearOfMaking}"><br><br>
 
   <label for="kilometers">Kilometers:</label>
-  <input type="number" id="kilometers" name="kilometers" required><br><br>
+  <input type="number" id="kilometers" name="kilometers" required th:field="*{kilometers}"><br><br>
 
   <label for="price">Price:</label>
-  <input type="number" id="price" name="price" required><br><br>
+  <input type="number" id="price" name="price" required th:field="*{price}"><br><br>
 
   <label for="description">Description:</label><br>
-  <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+  <textarea id="description" name="description" rows="4" cols="50" required th:field="*{description}"></textarea><br><br>
 
   <input type="submit" value="Submit">
 

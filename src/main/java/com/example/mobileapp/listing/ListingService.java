@@ -1,9 +1,7 @@
 package com.example.mobileapp.listing;//package com.example.mobileapp.listing;
+import com.example.mobileapp.user.User;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.database.DataSnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -21,14 +21,6 @@ public class ListingService {
 
 
     public static final String COL_NAME="Listing";
-
-
-    public String addListing() throws InterruptedException, ExecutionException {
-        Listing listing = new Listing("BMW M5", 15000, "3L engine", "Perfect condition");
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(listing.getId().toString()).set(listing);
-        return collectionsApiFuture.get().getUpdateTime().toString();
-    }
 
     public String saveListing(Listing listing) throws InterruptedException, ExecutionException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
@@ -65,13 +57,32 @@ public class ListingService {
         return "Document with Listing ID "+ id +" has been deleted";
     }
 
-    public List<Listing> getAllListings(DataSnapshot dataSnapshot){
+    public List<Listing> getAllListings() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        List<Listing> list = new ArrayList<>();
-        for(DataSnapshot getSnapshot : dataSnapshot.getChildren()){
-            Listing listing = dataSnapshot.getValue(Listing.class);
-            list.add(listing);
+        CollectionReference listingCollection = dbFirestore.collection(COL_NAME);
+        ApiFuture<QuerySnapshot> future = listingCollection.get();
+
+        QuerySnapshot querySnapshot = future.get();
+        List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+
+        List<Listing> listingList = new ArrayList<Listing>();
+
+        for (QueryDocumentSnapshot document : documents) {
+            Listing listing = document.toObject(Listing.class);
+            listingList.add(listing);
         }
-        return list;
+        Collections.sort(listingList, Comparator.comparing(Listing::getId));
+        return listingList;
+    }
+
+    public String createListing(Listing listing) throws InterruptedException, ExecutionException {
+        List<Listing> listingList = getAllListings();
+        Collections.reverse(listingList);
+        Listing listing1 = listingList.get(0);
+        long currentId = listing1.getId();
+        listing.setId(currentId+1);
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(listing.getId().toString()).set(listing);
+        return collectionsApiFuture.get().getUpdateTime().toString();
     }
 }
