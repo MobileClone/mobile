@@ -3,8 +3,10 @@ package com.example.mobileapp.listing;
 import com.example.mobileapp.DbConnection;
 import com.example.mobileapp.user.User;
 import com.google.firebase.database.DataSnapshot;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,15 +21,7 @@ public class ListingController {
     public ListingController(ListingService listingService) {
        this.listingService = listingService;
     }
-
-    @GetMapping(value = "/list")
-    public void addListing() throws ExecutionException, InterruptedException {
-        DbConnection db = new DbConnection();
-        db.dbConnection();
-        Listing listing = new Listing();
-        listingService.createListing(listing);
-    }
-
+    
     @GetMapping("/getPatientDetails")
     public Listing getListing(@RequestParam Long id ) throws InterruptedException, ExecutionException{
         return listingService.getListing(id);
@@ -48,5 +42,21 @@ public class ListingController {
         return listingService.deleteListing(id);
     }
 
+    @GetMapping("/createListing")
+    public String createListing(Model model){
+        Listing listing = new Listing();
+        model.addAttribute("listing",listing);
+        return "createListing";
+    }
+
+    @PostMapping("/createListing")
+    public void createListing(
+            @ModelAttribute("listing") Listing listing,
+            HttpServletRequest request,
+            Errors errors) throws ExecutionException, InterruptedException{
+        DbConnection db = new DbConnection();
+        db.dbConnection();
+        listingService.createListing(listing);
+    }
 
 }
