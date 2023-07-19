@@ -73,4 +73,11 @@ public class ListingController {
         model.addAttribute("listings",listingList);
         return "homepageLogged";
     }
+
+    @GetMapping (value = "/listings")
+    public String getAllUsers(Model model) throws ExecutionException, InterruptedException {
+        List<Listing> listingList = listingService.getAllListings();
+        model.addAttribute("listings",listingList);
+        return "listings";
+    }
 }
