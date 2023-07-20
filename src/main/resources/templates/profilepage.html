@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+    /* Styles for the user profile page */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #3498db;
+    }
+
+    .user-info {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .user-info label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .user-info span {
+      margin-left: 10px;
+      color: #777;
+    }
+
+    .listing-section {
+      margin-top: 30px;
+    }
+
+    .listing-section h2 {
+      margin-bottom: 10px;
+      color: #3498db;
+    }
+
+    .listing-item {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex; /* Use flexbox to align items */
+      align-items: center; /* Vertically center items */
+      justify-content: space-between; /* Horizontally distribute items */
+    }
+
+    .listing-item .listing-info {
+      flex-grow: 1; /* Let the listing name grow to fill available space */
+      margin-right: 10px; /* Add space between the listing name and buttons */
+    }
+
+    .listing-item button {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .listing-item button.edit-button {
+      background-color: #27ae60;
+    }
+
+    .listing-item button.delete-button {
+      background-color: #e74c3c;
+    }
+
+    .listing-item button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>User Profile</h1>
+  <div class="user-info">
+    <label>Username:</label>
+    <span id="username">Username Placeholder</span><br>
+
+    <label>Email:</label>
+    <span id="email">Email Placeholder</span><br>
+
+    <label>Phone Number:</label>
+    <span id="phoneNumber">Phone Number Placeholder</span><br>
+
+    <label>First Name:</label>
+    <span id="fName">First Name Placeholder</span><br>
+
+    <label>Last Name:</label>
+    <span id="lName">Last Name Placeholder</span>
+  </div>
+
+  <div class="listing-section">
+    <h2>Listing List:</h2>
+    <!-- The container for listing items -->
+    <div id="listingContainer"></div>
+  </div>
+</div>
+
+<script>
+  const userData = {
+    username: 'JohnDoe123',
+    email: 'johndoe@example.com',
+    phoneNumber: '+1234567890',
+    fName: 'John',
+    lName: 'Doe',
+    listingList: ['Listing 1', 'Listing 2'] // Placeholder for listing names
+  };
+
+  function updateProfileData() {
+    document.getElementById('username').textContent = userData.username;
+    document.getElementById('email').textContent = userData.email;
+    document.getElementById('phoneNumber').textContent = userData.phoneNumber;
+    document.getElementById('fName').textContent = userData.fName;
+    document.getElementById('lName').textContent = userData.lName;
+
+    const listingContainer = document.getElementById('listingContainer');
+    listingContainer.innerHTML = ""; // Clear previous listing items
+
+    userData.listingList.forEach((listing, index) => {
+      const listingItem = document.createElement('div');
+      listingItem.classList.add('listing-item');
+      listingItem.innerHTML = `
+          <div class="listing-info">
+            <strong>Listing ${index + 1}:</strong> ${listing}
+          </div>
+          <button class="edit-button" onclick="editListing(${index + 1})">Edit</button>
+          <button class="delete-button" onclick="deleteListing(${index + 1})">Delete</button>
+        `;
+      listingContainer.appendChild(listingItem);
+    });
+  }
+
+  function editListing(index) {
+    const newListing = prompt(`Edit Listing ${index}:`, userData.listingList[index - 1]);
+    if (newListing !== null && newListing !== "") {
+      userData.listingList[index - 1] = newListing;
+      updateProfileData();
+    }
+  }
+
+  function deleteListing(index) {
+    if (confirm(`Are you sure you want to delete Listing ${index}?`)) {
+      userData.listingList.splice(index - 1, 1);
+      updateProfileData();
+    }
+  }
+
+  updateProfileData();
+</script>
+</body>
+
+</html>
