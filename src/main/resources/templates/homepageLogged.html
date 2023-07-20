@@ -140,20 +140,16 @@
 
 <div class="search">
   <form>
-    <label for="brand">Brand:</label>
+    < <label for="brand">Brand:</label>
     <select id="brand">
       <option value="">All</option>
-      <option value="brand1">Brand 1</option>
-      <option value="brand2">Brand 2</option>
-      <option value="brand3">Brand 3</option>
+      <!-- Brand options will be populated here dynamically -->
     </select>
 
     <label for="model">Model:</label>
     <select id="model">
       <option value="">All</option>
-      <option value="model1">Model 1</option>
-      <option value="model2">Model 2</option>
-      <option value="model3">Model 3</option>
+      <!-- Model options will be populated here dynamically -->
     </select>
 
     <div class="price-range">
@@ -171,7 +167,6 @@
   </form>
 </div>
 
-
 <div class="car-offers">
   <div class="car-box" th:each="listing : ${listings}">
     <div class="picture">
@@ -182,21 +177,64 @@
         <span th:text="${listing.brand}"></span>
         <span th:text="${listing.model}"></span>
       </div>
-      <div class="price">
-        <span th:text="${listing.price}"></span> $
-      </div>
-
-      <div class="kilometres">
-        <span th:text="${listing.kilometers}"></span> km
-      </div>
-
-      <div class="year">
-        <span th:text="${listing.yearOfMaking}"></span> year
-      </div>
       <div class="description" th:text="${listing.description}"></div>
+      <div class="price" th:text="${listing.price}"></div>
     </div>
   </div>
 </div>
+
+<script>
+  // Your hashmap collection
+  const brandModelData = {
+    BMW: ["M3", "M5", "M7"],
+    AUDI: ["A3", "A4", "TT"],
+    // Add more brands and corresponding models as needed
+  };
+
+  // Function to populate the "Brand" and "Model" fields with options
+  function populateBrandAndModelFields() {
+    const brandSelect = document.getElementById("brand");
+    const modelSelect = document.getElementById("model");
+
+    // Clear existing options in both selects
+    brandSelect.innerHTML = '<option value="">All</option>';
+    modelSelect.innerHTML = '<option value="">All</option>';
+
+    // Populate the "Brand" field with options from the hashmap keys
+    for (const brand in brandModelData) {
+      const option = document.createElement("option");
+      option.value = brand;
+      option.textContent = brand;
+      brandSelect.appendChild(option);
+    }
+
+    // Function to update the "Model" field based on the selected brand
+    function updateModelOptions() {
+      const selectedBrand = brandSelect.value;
+      const models = brandModelData[selectedBrand];
+
+      modelSelect.innerHTML = '<option value="">All</option>';
+
+      if (models) {
+        models.forEach((model) => {
+          const option = document.createElement("option");
+          option.value = model;
+          option.textContent = model;
+          modelSelect.appendChild(option);
+        });
+      }
+    }
+
+    // Call the updateModelOptions function when the brand select value changes
+    brandSelect.addEventListener("change", updateModelOptions);
+
+    // Call the updateModelOptions function initially to populate the models for the default brand
+    updateModelOptions();
+  }
+
+  // Call the function to populate the "Brand" and "Model" fields when the page loads
+  populateBrandAndModelFields();
+</script>
 </body>
 
 </html>

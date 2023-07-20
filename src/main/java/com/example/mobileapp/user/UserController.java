@@ -67,4 +67,14 @@ public class UserController {
         return "redirect:/";
     }
 
+    @DeleteMapping
+    public String deletePatient(@RequestParam Long id){
+        return userService.deleteUser(id);
+    }
+
+    @PutMapping
+    public String updatePatient(@RequestBody Listing listing  ) throws InterruptedException, ExecutionException {
+        return userService.updateUser(listing);
+    }
+
 }

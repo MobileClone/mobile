@@ -102,4 +102,16 @@ public class UserService {
         return matcher.matches();
     }
 
+    public String deleteUser(Long id) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(id.toString()).delete();
+        return "Document with Listing ID "+ id +" has been deleted";
+    }
+
+    public String updateUser(Listing listing) throws InterruptedException, ExecutionException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(listing.getId().toString()).set(listing);
+        return collectionsApiFuture.get().getUpdateTime().toString();
+    }
+
 }
