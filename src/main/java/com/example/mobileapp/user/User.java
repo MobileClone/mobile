@@ -32,6 +32,15 @@ public class User {
 
     private String role;
 
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public User() {
     }
@@ -53,7 +62,7 @@ public class User {
         this.lName = lName;
     }
 
-    public User(String username, String password, String email, String phoneNumber, String fName, String lName, String role) {
+    public User(String username, String password, String email, String phoneNumber, String fName, String lName, String role,String token) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -61,6 +70,7 @@ public class User {
         this.fName = fName;
         this.lName = lName;
         this.role = role;
+        this.token = token;
     }
 
     public Long getId() {

@@ -2,13 +2,17 @@ package com.example.mobileapp.listing;
 
 import com.example.mobileapp.DbConnection;
 import com.example.mobileapp.user.User;
+import com.example.mobileapp.user.UserService;
 import com.google.firebase.database.DataSnapshot;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -23,28 +27,31 @@ public class ListingController {
        this.listingService = listingService;
     }
 
-    @GetMapping("/getListingDetails")
-    public Listing getListing(@RequestParam Long id ) throws InterruptedException, ExecutionException{
-        return listingService.getListing(id);
+    @GetMapping (value = "/createListing")
+    public ModelAndView createListing(@RequestParam(name = "token", required = false) String customToken,Model model) throws ExecutionException, InterruptedException {
+        ModelAndView modelAndView = new ModelAndView("/createListing");
+        if(customToken != null){
+            UserService userService = new UserService();
+            boolean check = userService.isValidToken(customToken);
+            if(check){
+                Long id = userService.getUserId(customToken);
+                System.out.println(id);
+                Listing listing = new Listing();
+                model.addAttribute("listing",listing);
+            } else{
+                System.out.println("nice try");
+                RedirectView redirectView = new RedirectView();
+                redirectView.setUrl("/login");
+                return new ModelAndView(redirectView);
+            }
+        }else{
+            System.out.println("nice try");
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/login");
+            return new ModelAndView(redirectView);
+        }
+        return modelAndView;
     }
-
-    @PutMapping("/updateListing")
-    public String updatePatient(@RequestBody Listing listing  ) throws InterruptedException, ExecutionException {
-        return listingService.updateListing(listing);
-    }
-
-    @DeleteMapping("/deleteListing")
-    public String deletePatient(@RequestParam Long id){
-        return listingService.deleteListing(id);
-    }
-
-    @GetMapping("/createListing")
-    public String createListing(Model model){
-        Listing listing = new Listing();
-        model.addAttribute("listing",listing);
-        return "createListing";
-    }
-
     @PostMapping("/createListing")
     public String createListing(
             @ModelAttribute("listing") Listing listing,
@@ -64,16 +71,54 @@ public class ListingController {
     }
 
     @GetMapping (value = "/homepageLogged")
-    public String getAllListingsLogged(Model model) throws ExecutionException, InterruptedException {
-        List<Listing> listingList = listingService.getAllListings();
-        model.addAttribute("listings",listingList);
-        return "homepageLogged";
+    public ModelAndView test(@RequestParam(name = "token", required = false) String customToken,Model model) throws ExecutionException, InterruptedException {
+        ModelAndView modelAndView = new ModelAndView("/homepageLogged");
+        if(customToken != null){
+            UserService userService = new UserService();
+            boolean check = userService.isValidToken(customToken);
+            if(check){
+                Long id = userService.getUserId(customToken);
+                System.out.println(id);
+                List<Listing> listingList = listingService.getAllListings();
+                model.addAttribute("listings",listingList);
+            } else{
+                System.out.println("nice try");
+                RedirectView redirectView = new RedirectView();
+                redirectView.setUrl("/login");
+                return new ModelAndView(redirectView);
+            }
+        }else{
+            System.out.println("nice try");
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/login");
+            return new ModelAndView(redirectView);
+        }
+        return modelAndView;
     }
 
     @GetMapping (value = "/listings")
-    public String getAllUsers(Model model) throws ExecutionException, InterruptedException {
-        List<Listing> listingList = listingService.getAllListings();
-        model.addAttribute("listings",listingList);
-        return "listings";
+    public ModelAndView getAllListings(@RequestParam(name = "token", required = false) String customToken,Model model) throws ExecutionException, InterruptedException {
+        ModelAndView modelAndView = new ModelAndView("/listings");
+        if(customToken != null){
+            UserService userService = new UserService();
+            boolean check = userService.isValidToken(customToken);
+            if(check){
+                Long id = userService.getUserId(customToken);
+                System.out.println(id);
+                List<Listing> listingList = listingService.getAllListings();
+                model.addAttribute("listings",listingList);
+            } else{
+                System.out.println("nice try");
+                RedirectView redirectView = new RedirectView();
+                redirectView.setUrl("/login");
+                return new ModelAndView(redirectView);
+            }
+        }else{
+            System.out.println("nice try");
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/login");
+            return new ModelAndView(redirectView);
+        }
+        return modelAndView;
     }
 }

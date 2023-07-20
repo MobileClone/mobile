@@ -70,6 +70,38 @@ public class UserService {
         return role;
     }
 
+    public String getUserToken(String username) throws ExecutionException, InterruptedException {
+        List<User> userList = getAll();
+        String token = "";
+        for(User user : userList){
+            if(username.equals(user.getUsername())){
+                token = user.getToken();
+            }
+        }
+        return token;
+    }
+
+    public Long getUserId(String token) throws ExecutionException, InterruptedException {
+        List<User> userList = getAll();
+        Long id = 0L;
+        for(User user : userList){
+            if(token.equals(user.getToken())){
+               id = user.getId();
+            }
+        }
+        return id;
+    }
+
+    public boolean isValidToken(String token) throws ExecutionException, InterruptedException {
+        List<User> userList = getAll();
+        boolean check = false;
+        for (User user : userList){
+            if(token.equals(user.getToken())){
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean isValid(String username, String password) throws ExecutionException, InterruptedException {
         List<User> userList = getAll();
         boolean check = false;
@@ -146,9 +178,9 @@ public class UserService {
         return "Document with Listing ID "+ id +" has been deleted";
     }
 
-    public String updateUser(Listing listing) throws InterruptedException, ExecutionException {
+    public String updateUser(User user) throws InterruptedException, ExecutionException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(listing.getId().toString()).set(listing);
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user.getId().toString()).set(user);
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
