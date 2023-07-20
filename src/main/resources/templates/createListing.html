@@ -90,7 +90,7 @@
 <body>
 <h1>Sell my Ride</h1>
 <form th:object="${listing}" method="POST" enctype="multipart/form-data">
-  <label "image">Image:</label>
+  <label>Image url:</label>
   <input type="text" id ="img" name="img" required th:field="*{imageUrl}">
 
   <label for="brand">Brand:</label>

@@ -173,7 +173,7 @@
 <div class="car-offers">
   <div class="car-box" th:each="listing : ${listings}">
     <div class="picture">
-      <img src="image-url-goes-here" alt="Car Image">
+      <img th:src="@{${listing.imageUrl}}" alt="Car Image" width="100" height="100">
     </div>
     <div class="details">
       <div class="title">
