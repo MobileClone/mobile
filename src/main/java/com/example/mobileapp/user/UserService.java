@@ -3,15 +3,20 @@ package com.example.mobileapp.user;
 import com.example.mobileapp.listing.Listing;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.common.hash.Hashing;
 import com.google.firebase.cloud.FirestoreClient;
 import io.grpc.netty.shaded.io.netty.channel.unix.Errors;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
@@ -67,14 +72,47 @@ public class UserService {
 
     public boolean isValid(String username, String password) throws ExecutionException, InterruptedException {
         List<User> userList = getAll();
+        boolean check = false;
         for (User user : userList){
-            if(username.equals(user.getUsername()) || password.equals(user.getPassword())){
-                return true;
+            if(username.equals(user.getUsername())){
+                check = checkCryptedInformation(user.getPassword(),password);
+                if(check){
+                    return true;
+                }
+                return false;
             }
         }
         return false;
     }
 
+    public String cryptInformation(String input){
+        String pw_hash = BCrypt.hashpw(input, BCrypt.gensalt());
+        return pw_hash;
+    }
+
+    public boolean checkCryptedInformation(String crypted,String current){
+        if (BCrypt.checkpw(current, crypted))
+            return true;
+        return false;
+    }
+    public String createSHAHash(String input) throws NoSuchAlgorithmException {
+
+        String hashtext = null;
+        String sha256hex = Hashing.sha256()
+                .hashString(input, StandardCharsets.UTF_8)
+                .toString();
+
+        hashtext = convertToHex(sha256hex);
+        return hashtext;
+    }
+    private String convertToHex(String messageDigest) {
+        BigInteger bigint = new BigInteger(1, messageDigest.getBytes());
+        String hexText = bigint.toString(16);
+        while (hexText.length() < 32) {
+            hexText = "0".concat(hexText);
+        }
+        return hexText;
+    }
     public boolean validUsername(String username){
         Pattern pattern;
         Matcher matcher;
