@@ -4,6 +4,7 @@ import com.example.mobileapp.listing.Listing;
 import com.example.mobileapp.listing.ListingService;
 import com.example.mobileapp.user.User;
 import com.example.mobileapp.user.UserService;
+import com.google.protobuf.Value;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,5 +27,8 @@ public class HomeController {
     }
 
 
-
+@GetMapping(value = "/profilepage")
+    public String userpage(){
+        return "profilepage";
+    }
 }

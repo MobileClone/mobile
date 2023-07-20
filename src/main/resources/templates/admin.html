@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #3498db;
+        }
+
+        h2 {
+            margin: 10px 0;
+            color: #3498db;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            width: 45%;
+            background-color: #fff;
+            padding: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e1e1e1;
+            padding: 10px 0;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn.edit-button {
+            background-color: #27ae60;
+        }
+
+        .btn.delete-button {
+            background-color: #e74c3c;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Admin Page</h1>
+<div class="container">
+    <div class="listings">
+        <h2>Listings:</h2>
+        <ul>
+            <li th:each="listing : ${listings}">
+          <span>
+            <strong th:text="${listing.brand} + ' - ' + ${listing.model}"></strong>
+            <span th:text="' - ' + ${listing.yearOfMaking} + ' - ' + ${listing.price} + '$'"></span>
+          </span>
+                <span>
+            <form th:action="@{/editListing}" method="post">
+              <input type="hidden" name="listingId" th:value="${listing.id}" />
+              <button type="submit">Edit</button>
+            </form>
+            <form th:action="@{/deleteListing}" method="post">
+              <input type="hidden" name="listingId" th:value="${listing.id}" />
+              <button type="submit">Delete</button>
+            </form>
+          </span>
+            </li>
+        </ul>
+    </div>
+    <div class="users">
+        <h2>Users:</h2>
+        <ul>
+            <li th:each="user : ${users}">
+          <span>
+            <strong th:text="${user.username}"></strong>
+            <span th:text="' - ' + ${user.email} + ' - ' + ${user.phoneNumber}"></span>
+          </span>
+                <span>
+            <form th:action="@{/editUser}" method="post">
+              <input type="hidden" name="userId" th:value="${user.id}" />
+              <button type="submit">Edit</button>
+            </form>
+            <form th:action="@{/deleteUser}" method="post">
+              <input type="hidden" name="userId" th:value="${user.id}" />
+              <button type="submit">Delete</button>
+            </form>
+          </span>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+
+</html>

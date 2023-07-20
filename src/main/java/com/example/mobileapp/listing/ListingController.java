@@ -23,22 +23,17 @@ public class ListingController {
        this.listingService = listingService;
     }
 
-    @GetMapping("/getPatientDetails")
+    @GetMapping("/getListingDetails")
     public Listing getListing(@RequestParam Long id ) throws InterruptedException, ExecutionException{
         return listingService.getListing(id);
     }
 
-    @PostMapping("/createPatient")
-    public String createListing(@RequestBody Listing listing ) throws InterruptedException, ExecutionException {
-        return listingService.saveListing(listing);
-    }
-
-    @PutMapping("/updatePatient")
+    @PutMapping("/updateListing")
     public String updatePatient(@RequestBody Listing listing  ) throws InterruptedException, ExecutionException {
         return listingService.updateListing(listing);
     }
 
-    @DeleteMapping("/deletePatient")
+    @DeleteMapping("/deleteListing")
     public String deletePatient(@RequestParam Long id){
         return listingService.deleteListing(id);
     }
