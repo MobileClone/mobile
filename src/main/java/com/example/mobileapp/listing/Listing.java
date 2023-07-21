@@ -16,11 +16,11 @@ public class Listing {
    private double price;
    private int kilometers;
    private String yearOfMaking;
-   private int userId;
+   private Long userId;
 
    public Listing(){}
 
-    public Listing(Long id,String brand, String model, String description, String imageUrl, double price, int kilometers, String yearOfMaking, int userId) {
+    public Listing(Long id,String brand, String model, String description, String imageUrl, double price, int kilometers, String yearOfMaking, Long userId) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -96,11 +96,11 @@ public class Listing {
         this.yearOfMaking = yearOfMaking;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

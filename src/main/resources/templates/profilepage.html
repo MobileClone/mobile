@@ -142,63 +142,12 @@
           <button class="btn delete-button" type="submit">Delete</button>
         </form></td>
       </tr>
-
       </tbody>
     </table>
   </div>
   </div>
 </div>
 
-<script>
-  const userData = {
-    username: '',
-    email: 'johndoe@example.com',
-    phoneNumber: '+1234567890',
-    fName: 'John',
-    lName: 'Doe',
-    listingList: ['Listing 1', 'Listing 2'] // Placeholder for listing names
-  };
-
-  function updateProfileData() {
-    document.getElementById('username').textContent = userData.username;
-    document.getElementById('email').textContent = userData.email;
-    document.getElementById('phoneNumber').textContent = userData.phoneNumber;
-    document.getElementById('fName').textContent = userData.fName;
-    document.getElementById('lName').textContent = userData.lName;
-
-    const listingContainer = document.getElementById('listingContainer');
-    listingContainer.innerHTML = ""; // Clear previous listing items
-
-    userData.listingList.forEach((listing, index) => {
-      const listingItem = document.createElement('div');
-      listingItem.classList.add('listing-item');
-      listingItem.innerHTML = `
-          <div class="listing-info">
-            <strong>Listing ${index + 1}:</strong> ${listing}
-          </div>
-          <button class="delete-button" onclick="deleteListing(${index + 1})">Delete</button>
-        `;
-      listingContainer.appendChild(listingItem);
-    });
-  }
-
-  // function editListing(index) {
-  //   const newListing = prompt(`Edit Listing ${index}:`, userData.listingList[index - 1]);
-  //   if (newListing !== null && newListing !== "") {
-  //     userData.listingList[index - 1] = newListing;
-  //     updateProfileData();
-  //   }
-  // }
-
-  function deleteListing(index) {
-    if (confirm(`Are you sure you want to delete Listing ${index}?`)) {
-      userData.listingList.splice(index - 1, 1);
-      updateProfileData();
-    }
-  }
-
-  updateProfileData();
-</script>
 </body>
 
 </html>

@@ -131,9 +131,9 @@
     <div class="website-name">Sell my Ride</div>
   </div>
   <div class="top-right">
-    <a class="add-button" href="/createListing">Create Listing</a>
+    <a class="add-button" th:href="@{/createListing(token=${token})}">Create Listing</a>
     <div>
-      <a class="add-button" href="/profilepage">Profile</a>
+      <a class="add-button" th:href="@{/profilepage(token=${token})}">Profile</a>
     </div>
     <div class="login">
       <a class="add-button" href="/login">Log out</a>
@@ -180,8 +180,18 @@
         <span th:text="${listing.brand}"></span>
         <span th:text="${listing.model}"></span>
       </div>
-      <div class="description" th:text="${listing.description}"></div>
-      <div class="price" th:text="${listing.price}"></div>
+      <div class="price">
+        Price: <span th:text="${listing.price}"></span>
+      </div>
+      <div class="year">
+        Year: <span th:text="${listing.yearOfMaking}"></span>
+      </div>
+      <div class="kilometers">
+      Kilometers: <span th:text="${listing.kilometers}"></span>
+    </div>
+      <div class="descrption">
+      Description: <span th:text="${listing.description}"></span>
+    </div>
     </div>
   </div>
 </div>

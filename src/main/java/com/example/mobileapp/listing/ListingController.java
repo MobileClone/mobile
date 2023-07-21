@@ -37,7 +37,10 @@ public class ListingController {
                 Long id = userService.getUserId(customToken);
                 System.out.println(id);
                 Listing listing = new Listing();
+                Long userId = userService.getUserId(customToken);
+                listing.setUserId(userId);
                 model.addAttribute("listing",listing);
+                model.addAttribute("token",customToken);
             } else{
                 System.out.println("nice try");
                 RedirectView redirectView = new RedirectView();
@@ -53,14 +56,19 @@ public class ListingController {
         return modelAndView;
     }
     @PostMapping("/createListing")
-    public String createListing(
-            @ModelAttribute("listing") Listing listing,
+    public ModelAndView createListing(
+            @ModelAttribute("listing") Listing listing,String token,
             HttpServletRequest request,
             Errors errors) throws ExecutionException, InterruptedException{
         DbConnection db = new DbConnection();
         db.dbConnection();
+        UserService userService = new UserService();
+        Long id = userService.getUserId(token);
+        listing.setUserId(id);
         listingService.createListing(listing);
-        return "redirect:/homepageLogged";
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/homepageLogged?token=" + token);
+        return new ModelAndView(redirectView);
     }
 
     @GetMapping (value = "/")
@@ -81,6 +89,7 @@ public class ListingController {
                 System.out.println(id);
                 List<Listing> listingList = listingService.getAllListings();
                 model.addAttribute("listings",listingList);
+                model.addAttribute("token",customToken);
             } else{
                 System.out.println("nice try");
                 RedirectView redirectView = new RedirectView();

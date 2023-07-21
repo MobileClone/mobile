@@ -37,33 +37,52 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping(value = "/profilepage")
-    public String getUserProfile(Model model) throws ExecutionException, InterruptedException{
-        List<User> userList = userService.getAll();
-        User user = new User();
-        String username = userService.getUsername("$2a$10$8SyHRPMU/NRL/p9qEcPmJeUJDgdwzQACiovsnnPv.2i7X87YQ8Ksq");
-        for (User user1 : userList){
-            if(username.equals(user1.getUsername())){
-                user.setId(user1.getId());
-                user.setUsername(username);
-                user.setEmail(user1.getEmail());
-                user.setfName(user1.getfName());
-                user.setlName(user1.getlName());
-                user.setPhoneNumber(user1.getPhoneNumber());
+    @GetMapping (value = "/profilepage")
+    public ModelAndView getUserProfile(@RequestParam(name = "token", required = false) String customToken,Model model) throws ExecutionException, InterruptedException {
+        ModelAndView modelAndView = new ModelAndView("/profilepage");
+        if(customToken != null){
+            UserService userService = new UserService();
+            boolean check = userService.isValidToken(customToken);
+            if(check){
+                List<User> userList = userService.getAll();
+                User user = new User();
+                String username = userService.getUsername(customToken);
+                for (User user1 : userList){
+                    if(username.equals(user1.getUsername())){
+                        user.setId(user1.getId());
+                        user.setUsername(username);
+                        user.setEmail(user1.getEmail());
+                        user.setfName(user1.getfName());
+                        user.setlName(user1.getlName());
+                        user.setPhoneNumber(user1.getPhoneNumber());
+                    }
+                }
+                ListingService listingService = new ListingService();
+                List<Listing> listingList = listingService.getAllListings();
+                List<Listing> listingList1 = new ArrayList<>();
+                for(Listing listing : listingList){
+                    if(user.getId() == listing.getUserId()){
+                        listingList1.add(listing);
+                    }
+                }
+                model.addAttribute("listings",listingList1);
+                model.addAttribute("user",user);
+
+
+            } else{
+                System.out.println("nice try");
+                RedirectView redirectView = new RedirectView();
+                redirectView.setUrl("/login");
+                return new ModelAndView(redirectView);
             }
+        }else{
+            System.out.println("nice try");
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/login");
+            return new ModelAndView(redirectView);
         }
-        ListingService listingService = new ListingService();
-        List<Listing> listingList = listingService.getAllListings();
-        List<Listing> listingList1 = new ArrayList<>();
-        for(Listing listing : listingList){
-            if(user.getId() == listing.getUserId()){
-                listingList1.add(listing);
-            }
-        }
-        model.addAttribute("listings",listingList1);
-        model.addAttribute("user",user);
-        return "profilepage";
-        }
+        return modelAndView;
+    }
     @GetMapping("/register")
     public String register(WebRequest request, Model model){
         User user = new User();
@@ -108,31 +127,5 @@ public class UserController {
         return new ModelAndView();
     }
 
-    @GetMapping("/home")
-    public ModelAndView test(@RequestParam(name = "token", required = false) String customToken) throws ExecutionException, InterruptedException {
-        ModelAndView modelAndView = new ModelAndView("/homepageLogged");
-        if(customToken != null){
-            boolean check = userService.isValidToken(customToken);
-            if(check){
-                Long id = userService.getUserId(customToken);
-                System.out.println(id);
-            } else{
-                System.out.println("nice try");
-                RedirectView redirectView = new RedirectView();
-                redirectView.setUrl("/login");
-                return new ModelAndView(redirectView);
-            }
-        }else{
-            System.out.println("nice try");
-            RedirectView redirectView = new RedirectView();
-            redirectView.setUrl("/login");
-            return new ModelAndView(redirectView);
-        }
-        return modelAndView;
-    }
-    @DeleteMapping
-    public String deletePatient(@RequestParam Long id){
-        return userService.deleteUser(id);
-    }
 
 }

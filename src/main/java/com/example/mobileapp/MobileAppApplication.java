@@ -18,11 +18,6 @@ import java.util.Objects;
 public class MobileAppApplication {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        UserService us = new UserService();
-        us.createSHAHash("frendo");
-        String crypted = us.cryptInformation("frendo");
-        us.checkCryptedInformation(crypted,"frendo");
-
         SpringApplication.run(MobileAppApplication.class, args);
     }
 
