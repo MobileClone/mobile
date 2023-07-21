@@ -81,6 +81,16 @@ public class UserService {
         return token;
     }
 
+    public String getUsername(String token) throws ExecutionException, InterruptedException {
+        List<User> userList = getAll();
+        String username = "";
+        for(User user : userList){
+            if(token.equals(user.getToken())){
+                username = user.getUsername();
+            }
+        }
+        return username;
+    }
     public Long getUserId(String token) throws ExecutionException, InterruptedException {
         List<User> userList = getAll();
         Long id = 0L;

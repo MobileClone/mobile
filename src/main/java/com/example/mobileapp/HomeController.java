@@ -30,11 +30,5 @@ public class HomeController {
     }
 
 
-    @GetMapping(value = "/profilepage")
-    public String userpage(){
-        return "profilepage";
-    }
-
-
 }
 

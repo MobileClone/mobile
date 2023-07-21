@@ -44,6 +44,17 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    @GetMapping("/deleteUserListing")
+    public String deleteSomething(Model model) throws ExecutionException, InterruptedException {
+        return "redirect:/profilepage";
+    }
+
+    @PostMapping("/deleteUserListing")
+    public String deleteUserListing(@RequestParam Long listingId) {
+        String deleteMessage = listingService.deleteListing(listingId);
+        return "redirect:/profilepage";
+    }
+
     @PostMapping("/editUser")
     public String editUser(@RequestParam Long userId) {
         return "redirect:/admin";

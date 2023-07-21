@@ -37,6 +37,33 @@ public class UserController {
         return "user";
     }
 
+    @GetMapping(value = "/profilepage")
+    public String getUserProfile(Model model) throws ExecutionException, InterruptedException{
+        List<User> userList = userService.getAll();
+        User user = new User();
+        String username = userService.getUsername("$2a$10$8SyHRPMU/NRL/p9qEcPmJeUJDgdwzQACiovsnnPv.2i7X87YQ8Ksq");
+        for (User user1 : userList){
+            if(username.equals(user1.getUsername())){
+                user.setId(user1.getId());
+                user.setUsername(username);
+                user.setEmail(user1.getEmail());
+                user.setfName(user1.getfName());
+                user.setlName(user1.getlName());
+                user.setPhoneNumber(user1.getPhoneNumber());
+            }
+        }
+        ListingService listingService = new ListingService();
+        List<Listing> listingList = listingService.getAllListings();
+        List<Listing> listingList1 = new ArrayList<>();
+        for(Listing listing : listingList){
+            if(user.getId() == listing.getUserId()){
+                listingList1.add(listing);
+            }
+        }
+        model.addAttribute("listings",listingList1);
+        model.addAttribute("user",user);
+        return "profilepage";
+        }
     @GetMapping("/register")
     public String register(WebRequest request, Model model){
         User user = new User();

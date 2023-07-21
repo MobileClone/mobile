@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -100,31 +100,58 @@
   <h1>User Profile</h1>
   <div class="user-info">
     <label>Username:</label>
-    <span id="username">Username Placeholder</span><br>
+    <span id="user" th:text="${user.username}">Username Placeholder</span><br>
 
     <label>Email:</label>
-    <span id="email">Email Placeholder</span><br>
+    <span id="emai" th:text="${user.email}">Email Placeholder</span><br>
 
     <label>Phone Number:</label>
-    <span id="phoneNumber">Phone Number Placeholder</span><br>
+    <span id="phoneNumbe" th:text="${user.phoneNumber}">Phone Number Placeholder</span><br>
 
     <label>First Name:</label>
-    <span id="fName">First Name Placeholder</span><br>
+    <span id="fNam" th:text="${user.fName}">First Name Placeholder</span><br>
 
     <label>Last Name:</label>
-    <span id="lName">Last Name Placeholder</span>
+    <span id="lNam" th:text="${user.lName}">Last Name Placeholder</span>
   </div>
 
   <div class="listing-section">
     <h2>Listing List:</h2>
     <!-- The container for listing items -->
-    <div id="listingContainer"></div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>Year</th>
+        <th>Kilometers</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="listing:${listings}">
+        <td th:text="${listing.getId()}">s</td>
+        <td th:text="${listing.getBrand()}"></td>
+        <td th:text="${listing.getModel()}"></td>
+        <td th:text="${listing.getPrice()}"></td>
+        <td th:text="${listing.getYearOfMaking()}"></td>
+        <td th:text="${listing.getKilometers()}"></td>
+        <td><form th:action="@{/deleteUserListing}" method="post">
+          <input type="hidden" name="listingId" th:value="${listing.id}" />
+          <button class="btn delete-button" type="submit">Delete</button>
+        </form></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
   </div>
 </div>
 
 <script>
   const userData = {
-    username: 'JohnDoe123',
+    username: '',
     email: 'johndoe@example.com',
     phoneNumber: '+1234567890',
     fName: 'John',
@@ -149,20 +176,19 @@
           <div class="listing-info">
             <strong>Listing ${index + 1}:</strong> ${listing}
           </div>
-          <button class="edit-button" onclick="editListing(${index + 1})">Edit</button>
           <button class="delete-button" onclick="deleteListing(${index + 1})">Delete</button>
         `;
       listingContainer.appendChild(listingItem);
     });
   }
 
-  function editListing(index) {
-    const newListing = prompt(`Edit Listing ${index}:`, userData.listingList[index - 1]);
-    if (newListing !== null && newListing !== "") {
-      userData.listingList[index - 1] = newListing;
-      updateProfileData();
-    }
-  }
+  // function editListing(index) {
+  //   const newListing = prompt(`Edit Listing ${index}:`, userData.listingList[index - 1]);
+  //   if (newListing !== null && newListing !== "") {
+  //     userData.listingList[index - 1] = newListing;
+  //     updateProfileData();
+  //   }
+  // }
 
   function deleteListing(index) {
     if (confirm(`Are you sure you want to delete Listing ${index}?`)) {
