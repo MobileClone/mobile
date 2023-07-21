@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <title>Sell my ride</title>
   <style>
@@ -10,7 +11,7 @@
     }
 
     header {
-      background-color: #f1f1f1;
+      background-color: #337ab7; /* Updated header background color */
       padding: 20px;
       display: flex;
       justify-content: space-between;
@@ -23,13 +24,19 @@
 
     .add-button {
       display: inline-block;
-      background-color: #337ab7;
-      color: #fff;
-      padding: 5px 10px;
+      background-color: #f1f1f1; /* Updated button background color */
+      color: #337ab7; /* Updated button text color */
+      padding: 8px 20px;
       border-radius: 5px;
       font-weight: bold;
       text-decoration: none;
       margin-right: 10px;
+      transition: background-color 0.2s ease, color 0.2s ease; /* Cool transition effect */
+    }
+
+    .add-button:hover {
+      background-color: #337ab7; /* Updated button background color on hover */
+      color: #fff; /* Updated button text color on hover */
     }
 
     .car-offers {
@@ -46,6 +53,11 @@
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease; /* Cool transition effect */
+    }
+
+    .car-box:hover {
+      transform: scale(1.05); /* Slightly increase size on hover */
     }
 
     .car-box .picture {
@@ -107,11 +119,18 @@
       border-radius: 3px;
       cursor: pointer;
       margin-top: 10px;
+      transition: background-color 0.2s ease; /* Cool transition effect */
+    }
+
+    .search input[type="submit"]:hover {
+      background-color: #23527c; /* Darker shade on hover */
     }
 
     .website-name {
       font-size: 24px;
       font-weight: bold;
+      color: #fff; /* Updated website name color */
+      letter-spacing: 2px; /* Added letter-spacing for a cool effect */
     }
 
     .top-left {
@@ -125,6 +144,7 @@
     }
   </style>
 </head>
+
 <body>
 <header>
   <div class="top-left">
@@ -187,11 +207,11 @@
         Year: <span th:text="${listing.yearOfMaking}"></span>
       </div>
       <div class="kilometers">
-      Kilometers: <span th:text="${listing.kilometers}"></span>
-    </div>
+        Kilometers: <span th:text="${listing.kilometers}"></span>
+      </div>
       <div class="descrption">
-      Description: <span th:text="${listing.description}"></span>
-    </div>
+        Description: <span th:text="${listing.description}"></span>
+      </div>
     </div>
   </div>
 </div>
