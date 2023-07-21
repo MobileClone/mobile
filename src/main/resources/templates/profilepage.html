@@ -9,7 +9,7 @@
     /* Styles for the user profile page */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f2f2f2;
+      background-color: #ecf0f5;
       margin: 0;
       padding: 0;
     }
@@ -19,7 +19,7 @@
       margin: 30px auto;
       background-color: #fff;
       padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 255, 0.1); /* Blue shadow */
       border-radius: 8px;
     }
 
@@ -36,12 +36,12 @@
 
     .user-info label {
       font-weight: bold;
-      color: #555;
+      color: #3498db;
     }
 
     .user-info span {
       margin-left: 10px;
-      color: #777;
+      color: #555;
     }
 
     .listing-section {
@@ -53,22 +53,23 @@
       color: #3498db;
     }
 
-    .listing-item {
-      margin-bottom: 10px;
-      padding: 10px;
-      background-color: #f9f9f9;
-      border-radius: 4px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      display: flex; /* Use flexbox to align items */
-      align-items: center; /* Vertically center items */
-      justify-content: space-between; /* Horizontally distribute items */
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
-    .listing-item .listing-info {
-      flex-grow: 1; /* Let the listing name grow to fill available space */
-      margin-right: 10px; /* Add space between the listing name and buttons */
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .listing-item {
+      cursor: pointer;
+    }
+
+    .listing-item:hover {
+      background-color: #f1f9ff; /* Lighter blue on hover */
     }
 
     .listing-item button {
@@ -82,11 +83,11 @@
     }
 
     .listing-item button.edit-button {
-      background-color: #27ae60;
+      background-color: #1e8449; /* Green for edit button */
     }
 
     .listing-item button.delete-button {
-      background-color: #e74c3c;
+      background-color: #c0392b; /* Red for delete button */
     }
 
     .listing-item button:hover {
@@ -103,51 +104,52 @@
     <span id="user" th:text="${user.username}">Username Placeholder</span><br>
 
     <label>Email:</label>
-    <span id="emai" th:text="${user.email}">Email Placeholder</span><br>
+    <span id="email" th:text="${user.email}">Email Placeholder</span><br>
 
     <label>Phone Number:</label>
-    <span id="phoneNumbe" th:text="${user.phoneNumber}">Phone Number Placeholder</span><br>
+    <span id="phoneNumber" th:text="${user.phoneNumber}">Phone Number Placeholder</span><br>
 
     <label>First Name:</label>
-    <span id="fNam" th:text="${user.fName}">First Name Placeholder</span><br>
+    <span id="fName" th:text="${user.fName}">First Name Placeholder</span><br>
 
     <label>Last Name:</label>
-    <span id="lNam" th:text="${user.lName}">Last Name Placeholder</span>
+    <span id="lName" th:text="${user.lName}">Last Name Placeholder</span>
   </div>
 
   <div class="listing-section">
     <h2>Listing List:</h2>
     <!-- The container for listing items -->
-    <table class="table">
+    <table>
       <thead>
       <tr>
-        <th>id</th>
+        <th>Id</th>
         <th>Brand</th>
         <th>Model</th>
         <th>Price</th>
         <th>Year</th>
         <th>Kilometers</th>
+        <th>Action</th>
       </tr>
       </thead>
       <tbody>
-      <tr th:each="listing:${listings}">
-        <td th:text="${listing.getId()}">s</td>
-        <td th:text="${listing.getBrand()}"></td>
-        <td th:text="${listing.getModel()}"></td>
-        <td th:text="${listing.getPrice()}"></td>
-        <td th:text="${listing.getYearOfMaking()}"></td>
-        <td th:text="${listing.getKilometers()}"></td>
-        <td><form th:action="@{/deleteUserListing}" method="post">
-          <input type="hidden" name="listingId" th:value="${listing.id}" />
-          <button class="btn delete-button" type="submit">Delete</button>
-        </form></td>
+      <tr th:each="listing : ${listings}">
+        <td th:text="${listing.id}"></td>
+        <td th:text="${listing.brand}"></td>
+        <td th:text="${listing.model}"></td>
+        <td th:text="${listing.price}"></td>
+        <td th:text="${listing.yearOfMaking}"></td>
+        <td th:text="${listing.kilometers}"></td>
+        <td>
+          <form th:action="@{/deleteUserListing}" method="post">
+            <input type="hidden" name="listingId" th:value="${listing.id}" />
+            <button class="delete-button" type="submit">Delete</button>
+          </form>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
-  </div>
 </div>
-
 </body>
 
 </html>
